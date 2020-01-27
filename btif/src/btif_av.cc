@@ -2936,19 +2936,17 @@ static bt_status_t init_src(
   bt_status_t status = BT_STATUS_FAIL;
   BTIF_TRACE_EVENT("%s() with max conn = %d", __func__, max_a2dp_connections);
 
-  char value[PROPERTY_VALUE_MAX] = {'\0'};
-
 #ifdef ENABLE_SPLIT_A2DP
+  char value[PROPERTY_VALUE_MAX] = {'\0};
   osi_property_get("persist.vendor.btstack.enable.splita2dp", value, "true");
   BTIF_TRACE_ERROR("split_a2dp_status = %s",value);
   bt_split_a2dp_enabled = (strcmp(value, "true") == 0);
   BTIF_TRACE_DEBUG("split_a2dp_status = %d",bt_split_a2dp_enabled);
-#endif /* ENABLE_SPLIT_A2DP */
-
   osi_property_get("persist.vendor.btstack.twsplus.defaultchannelmode", value, "mono");
   BTIF_TRACE_DEBUG("tws default channel mode = %s",value);
   tws_defaultmono_supported = (strcmp(value, "mono") == 0);
   BTIF_TRACE_DEBUG("default mono channel mode = %d",tws_defaultmono_supported);
+#endif
 
   if (bt_av_sink_callbacks != NULL)
         // already did btif_av_init()
